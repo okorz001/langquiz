@@ -12,13 +12,16 @@ import {setLang} from './actions'
 import reducer from './reducers'
 import App from './components/App'
 
-const logger = createLogger({
-    // SET_ANSWER is very noisy
-    predicate: (getState, action) => action.type != SET_ANSWER,
-})
+const middlewares = [thunk]
 
-// logger must be last
-const middlewares = [thunk, logger]
+if (process.env.NODE_ENV != 'production') {
+    const logger = createLogger({
+        // SET_ANSWER is very noisy
+        predicate: (getState, action) => action.type != SET_ANSWER,
+    })
+    // logger must be last
+    middlewares.push(logger)
+}
 
 const store = createStore(reducer, applyMiddleware(...middlewares))
 
