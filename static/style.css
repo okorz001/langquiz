@@ -1,0 +1,67 @@
+body, button, input {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 20px;
+}
+
+.dictionary {
+    display: flex;
+    flex-direction: column;
+    max-width: 500px;
+    margin: auto;
+}
+
+.definition {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.native {
+    order: 1;
+}
+
+.foreign {
+    order: 2;
+}
+
+.native, .foreign {
+    flex: 0 1 auto;
+    padding: 2px 5px 2px 5px;
+}
+
+.quiz {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    max-width: 500px;
+}
+
+.question {
+    order: 1;
+    text-align: center;
+    margin: auto;
+}
+
+.answer {
+    order: 2;
+    text-align: center;
+    margin: auto;
+    border: 1px solid #777777;
+}
+
+.submit {
+    order: 3;
+    margin: auto;
+}
+
+.results {
+    order: 4;
+}
+
+.right {
+    color: #00AA00;
+}
+
+.wrong {
+    color: #CC0000;
+}
