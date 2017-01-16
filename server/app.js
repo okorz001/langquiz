@@ -1,5 +1,6 @@
 const express = require('express')
 
+const sendJson = require('./sendJson')
 const {getWords} = require('./words')
 
 const PORT = process.env.PORT || 8080
@@ -11,11 +12,13 @@ const app = express()
 app.use(express.static('./static'))
 app.use(express.static('./build'))
 
+app.use(sendJson)
+
 app.get('/api/words/:key', (req, res, next) => {
     const key = req.params.key
     getWords(key).then(words => {
         console.log(`${key} has ${words.length} words`)
-        res.send(JSON.stringify({words}, null, 4))
+        res.sendJson({words})
     }).catch(next)
 })
 
