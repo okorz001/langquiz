@@ -1,4 +1,5 @@
 import * as actionTypes from '../actionTypes'
+import {saveHistory} from './history'
 
 const rand = (max) => Math.floor(max * Math.random())
 
@@ -29,8 +30,9 @@ export const nextQuestion = () => (dispatch, getState) => {
     dispatch(setQuestion(newWord))
 }
 
-const submitAnswer = (id, question, answer, correct) => ({
+const submitAnswer = (key, id, question, answer, correct) => ({
     type: actionTypes.SUBMIT_ANSWER,
+    key,
     id,
     question,
     answer,
@@ -39,6 +41,7 @@ const submitAnswer = (id, question, answer, correct) => ({
 
 export const sendAnswer = () => (dispatch, getState) => {
     const state = getState()
+    const key = state.active.key
     const word = state.active.word
     const answer = state.active.answer
 
@@ -47,6 +50,7 @@ export const sendAnswer = () => (dispatch, getState) => {
     // TODO: is this unicode safe
     const correct = answer.toLowerCase() == word.native
 
-    dispatch(submitAnswer(word.id, question, answer, correct))
+    dispatch(submitAnswer(key, word.id, question, answer, correct))
     dispatch(nextQuestion())
+    dispatch(saveHistory())
 }

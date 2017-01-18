@@ -54,9 +54,39 @@ const words = (state = {}, action) => {
     return state
 }
 
+const history = (state = {}, action) => {
+    switch (action.type) {
+        case actionTypes.LOAD_HISTORY:
+            return action.history || {}
+
+        case actionTypes.SUBMIT_ANSWER:
+            const stateForKey = state[action.key] || {}
+            const history = stateForKey[action.id] || {
+                id: action.id,
+                correct: 0,
+                total: 0,
+            }
+
+            const newHistory = Object.assign({}, history)
+            if (action.correct) newHistory.correct++
+            newHistory.total++
+
+            const newStateForKey = Object.assign({}, stateForKey, {
+                [action.id]: newHistory,
+            })
+            const newState = Object.assign({}, state, {
+                [action.key]: newStateForKey,
+            })
+
+            return newState
+    }
+    return state
+}
+
 const reducer = combineReducers({
     active,
     words,
+    history,
 })
 
 export default reducer

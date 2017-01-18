@@ -4,29 +4,16 @@ body, button, input {
 }
 
 .dictionary {
-    display: flex;
-    flex-direction: column;
-    max-width: 500px;
     margin: auto;
 }
 
-.definition {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.native {
-    order: 1;
-}
-
-.foreign {
-    order: 2;
-}
-
-.native, .foreign {
-    flex: 0 1 auto;
+.dictionary > td,
+.dictionary > th {
     padding: 2px 5px 2px 5px;
+}
+
+.history {
+    text-align: center;
 }
 
 .quiz {

@@ -8,7 +8,7 @@ import createLogger from 'redux-logger'
 import thunk from 'redux-thunk'
 
 import {SET_ANSWER} from './actionTypes'
-import {setLang} from './actions'
+import {loadHistory, setLang} from './actions'
 import reducer from './reducers'
 import App from './components/App'
 
@@ -33,6 +33,8 @@ const app = (
 
 // load a language
 store.dispatch(setLang('en', 'vi'))
+// load your history
+store.dispatch(loadHistory())
 
 document.addEventListener('DOMContentLoaded', () => {
     const mount = document.getElementById('app')
