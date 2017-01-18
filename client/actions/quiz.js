@@ -48,7 +48,7 @@ export const sendAnswer = () => (dispatch, getState) => {
     // TODO: this assumes all questions are foreign
     const question = word.foreign
     // TODO: is this unicode safe
-    const correct = answer.toLowerCase() == word.native
+    const correct = answer.toLowerCase() == word.native.toLowerCase()
 
     dispatch(submitAnswer(key, word.id, question, answer, correct))
     dispatch(nextQuestion())
