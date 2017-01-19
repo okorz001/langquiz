@@ -3,17 +3,42 @@ body, button, input {
     font-size: 20px;
 }
 
+.sortable::before {
+    content: '↕ ';
+}
+
+.selected::before {
+    content: '↓ ';
+}
+
+.reversed::before {
+    content: '↑ ';
+}
+
 .dictionary {
     margin: auto;
 }
 
-.dictionary > td,
-.dictionary > th {
+.dictionary td,
+.dictionary th {
     padding: 2px 5px 2px 5px;
 }
 
-.history {
+.dictionary th {
+    background-color: #000000;
+    color: #FFFFFF;
+}
+
+.dictionary td:nth-child(3) {
     text-align: center;
+}
+
+.dictionary tr:nth-child(odd) {
+    background-color: #FFFFFF;
+}
+
+.dictionary tr:nth-child(even) {
+    background-color: #DDDDDD;
 }
 
 .quiz {
