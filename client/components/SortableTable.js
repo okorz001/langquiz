@@ -9,10 +9,21 @@ function range(limit) {
     return arr
 }
 
-function renderHeaders(columns, onClick) {
-    return columns.map((column, i) =>
-        <th key={i} data-col={i} onClick={onClick}>{column.label}</th>
-    )
+function renderHeaders(columns, sort, reverse, onClick) {
+    return columns.map((column, i) => {
+        const sortable = column.sort != null
+        const css = []
+        if (sortable) css.push('sortable')
+        if (i == sort) css.push('selected')
+        if (i == sort && reverse) css.push('reversed')
+        return (
+            <th key={i} data-col={i}
+                className={css.join(' ')}
+                onClick={sortable ? onClick : null}>
+                {column.label}
+            </th>
+        )
+    })
 }
 
 function renderRows(data, keys) {
@@ -68,7 +79,7 @@ class SortableTable extends React.Component {
         this.onHeaderClick = event => {
             event.preventDefault()
             const sort = +event.target.dataset.col
-            this.setState(state => {
+            this.setState((state, props) => {
                 // If sort is the same as before, flip it
                 if (state.sort == sort) {
                     return {reverse: !state.reverse}
@@ -80,18 +91,19 @@ class SortableTable extends React.Component {
 
     render() {
         const {sort, reverse} = this.state
-        const {columns, data, properties} = this.props
+        const {className, columns, data, properties} = this.props
         const width = columns.length
         const keys = properties || range(width)
 
         const sortedData = sortData(columns[sort], keys[sort], data)
         if (reverse) sortedData.reverse()
 
-        const headers = renderHeaders(columns, this.onHeaderClick)
+        const headers = renderHeaders(columns, sort, reverse,
+                                      this.onHeaderClick)
         const rows = renderRows(sortedData, keys) 
 
         return (
-            <table>
+            <table className={className}>
                 <thead>
                     <tr>
                         {headers}
@@ -114,6 +126,7 @@ const columnShape = PropTypes.shape({
 })
 
 SortableTable.propTypes = {
+    className: PropTypes.string,
     columns: PropTypes.arrayOf(columnShape).isRequired,
     sort: PropTypes.number,
     data: PropTypes.array.isRequired,
