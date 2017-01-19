@@ -1,0 +1,54 @@
+state:
+    active:
+        # String - code for native language
+        native: en
+        # String - code for foreign language
+        foreign: vi
+        # String - key for language pair
+        key: en-vi
+        # Object - the current quiz word
+        word:
+            # String - the unique id for this word
+            id: abc123def
+            # String - the native word
+            native: bird
+            # String - the foreign translation of the word
+            foreign: chim
+        # String - answer from user, may be updated multiple times
+        answer: bir
+        # Array - revchron list of recent quiz results
+        results:
+        -
+            # String - the question presented to user
+            question: bird
+            # String - the user's answer
+            answer: chim
+            # Boolean - was the user correct?
+            correct: true
+
+    # NOTE: this object is dynamic like a map. the keys correspond to the
+    #       language pairs. these are lazy loaded and so may not exist.
+    words:
+        # Array - the words for this language
+        en-vi:
+        -
+            # String - the unique id for this word
+            id: abc123def
+            # String - the native word
+            native: bird
+            # String - the foreign translation of the word
+            foreign: chim
+
+    # NOTE: this object is dynamic like a map. the keys correspond to the
+    #       language pairs. these are loaded from local storage but will
+    #       not exist until the user answers a question.
+    history:
+        # Array - the user's history for this language
+        en-vi:
+        -
+            # String - the unique id for this word
+            id: abc123def
+            # Number - how many times the user was right
+            correct: 1
+            # Number - how many times the user has answered
+            total: 2
