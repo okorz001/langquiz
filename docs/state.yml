@@ -1,30 +1,33 @@
 state:
-    active:
+    lang:
         # String - code for native language
         native: en
         # String - code for foreign language
         foreign: vi
         # String - key for language pair
         key: en-vi
-        # Object - the current quiz word
-        word:
-            # String - the unique id for this word
-            id: abc123def
-            # String - the native word
-            native: bird
-            # String - the foreign translation of the word
-            foreign: chim
+
+    quiz:
+        # String - the unique id for the word in the quiz
+        id: abc123def
+        # String - the question presented to user
+        question: chim
+        # String - the expected answer
+        expected: bird
         # String - answer from user, may be updated multiple times
         answer: bir
-        # Array - revchron list of recent quiz results
-        results:
-        -
-            # String - the question presented to user
-            question: bird
-            # String - the user's answer
-            answer: chim
-            # Boolean - was the user correct?
-            correct: true
+
+    # Array - revchron list of recent quiz
+    results:
+    -
+        # String - the question presented to user
+        question: bird
+        # String - the expected answer
+        expected: chim
+        # String - the user's final answer
+        answer: xanh
+        # Boolean - was the user correct?
+        correct: false
 
     # NOTE: this object is dynamic like a map. the keys correspond to the
     #       language pairs. these are lazy loaded and so may not exist.

@@ -2,6 +2,7 @@ import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
 
 import {setAnswer, sendAnswer} from '../actions'
+import * as selectors from '../selectors'
 
 const onChange = (dispatch) => (event) => {
     event.preventDefault()
@@ -39,13 +40,13 @@ const Result = ({correct, question, answer}) => {
     )
 }
 
-const Quiz = ({word, answer, results, dispatch}) => (
+const Quiz = ({quiz, results, dispatch}) => (
     <form className="quiz">
         <div className="question">
-            {word.foreign}
+            {quiz.question}
         </div>
         <input type="text" autoFocus className="answer"
-               value={answer}
+               value={quiz.answer}
                onChange={onChange(dispatch)}>
         </input>
         <button className="submit"
@@ -57,22 +58,23 @@ const Quiz = ({word, answer, results, dispatch}) => (
 )
 
 Quiz.propTypes = {
-    word: PropTypes.shape({
-        native: PropTypes.string,
-        foreign: PropTypes.string,
-    }).isRequired,
-    answer: PropTypes.string.isRequired,
-    results: PropTypes.arrayOf(PropTypes.shape({
-        correct: PropTypes.bool.isRequired,
+    quiz: PropTypes.shape({
+        id: PropTypes.string.isRequired,
         question: PropTypes.string.isRequired,
+        expected: PropTypes.string.isRequired,
         answer: PropTypes.string.isRequired,
+    }).isRequired,
+    results: PropTypes.arrayOf(PropTypes.shape({
+        question: PropTypes.string.isRequired,
+        expected: PropTypes.string.isRequired,
+        answer: PropTypes.string.isRequired,
+        correct: PropTypes.bool.isRequired,
     })).isRequired,
 }
 
-const stateToProps = ({active}) => ({
-    word: active.word,
-    answer: active.answer,
-    results: active.results,
+const stateToProps = (state) => ({
+    quiz: selectors.getCurrentQuiz(state),
+    results: selectors.getRecentQuizzes(state),
 })
 
 export default connect(stateToProps)(Quiz)

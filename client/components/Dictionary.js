@@ -1,12 +1,13 @@
 import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
 
+import * as selectors from '../selectors'
 import SortableTable, {compareNumbers} from './SortableTable'
 
-const Dictionary = ({active, words, history}) => {
+const Dictionary = ({native, foreign, words, history}) => {
     const columns = [
-        {label: active.native, sort: 'string'},
-        {label: active.foreign, sort: 'string'},
+        {label: native, sort: 'string'},
+        {label: foreign, sort: 'string'},
         {label: 'history'},
     ]
     const data = words.map(word => {
@@ -19,17 +20,22 @@ const Dictionary = ({active, words, history}) => {
 }
 
 Dictionary.propTypes = {
+    native: PropTypes.string.isRequired,
+    foreign: PropTypes.string.isRequired,
     words: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.string.isRequired,
         native: PropTypes.string.isRequired,
         foreign: PropTypes.string.isRequired,
     })).isRequired,
+    // this is a dynamic object
+    history: PropTypes.object.isRequired,
 }
 
-const stateToProps = ({active, words, history}) => ({
-    active: active || {},
-    words: words[active.key] || [],
-    history: history[active.key] || {},
+const stateToProps = (state) => ({
+    native: selectors.getNativeLang(state),
+    foreign: selectors.getForeignLang(state),
+    words: selectors.getWords(state),
+    history: selectors.getHistory(state),
 })
 
 export default connect(stateToProps)(Dictionary)

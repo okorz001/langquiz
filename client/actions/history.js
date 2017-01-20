@@ -1,11 +1,13 @@
 import {SAVE_HISTORY, LOAD_HISTORY} from '../actionTypes'
+import * as selectors from '../selectors'
 import {saveData, loadData} from '../storage'
 
 const HISTORY_KEY = 'history'
 
 export const saveHistory = () => (dispatch, getState) => {
     const state = getState()
-    saveData(HISTORY_KEY, state.history || null)
+    const history = selectors.getAllHistory(state)
+    saveData(HISTORY_KEY, history)
     return {
         type: SAVE_HISTORY,
     }

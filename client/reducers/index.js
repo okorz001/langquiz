@@ -1,92 +1,15 @@
 import {combineReducers} from 'redux'
 
-import * as actionTypes from '../actionTypes'
+import history from './history'
+import lang from './lang'
+import quiz from './quiz'
+import recent from './recent'
+import words from './words'
 
-const INITIAL_ACTIVE = {
-    word: {
-        id: 0,
-        native: '',
-        foreign: '',
-    },
-    answer: '',
-    results: [],
-}
-
-const active = (state = INITIAL_ACTIVE, action) => {
-    switch (action.type) {
-        case actionTypes.SET_LANGUAGE:
-            return Object.assign({}, state, {
-                native: action.native,
-                foreign: action.foreign,
-                key: action.key,
-            })
-        case actionTypes.SET_QUESTION:
-            return Object.assign({}, state, {
-                word: action.word,
-                answer: '',
-            })
-        case actionTypes.SET_ANSWER:
-            return Object.assign({}, state, {
-                answer: action.answer,
-            })
-        case actionTypes.SUBMIT_ANSWER:
-            const result = {
-                question: action.question,
-                answer: action.answer,
-                correct: action.correct,
-            }
-            // Prepend new result to front of array
-            const results = [result].concat(state.results)
-            return Object.assign({}, state, {
-                results,
-            })
-    }
-    return state
-}
-
-const words = (state = {}, action) => {
-    switch (action.type) {
-        case actionTypes.LOAD_WORDS_DONE:
-            return Object.assign({}, state, {
-                [action.key]: action.words,
-            })
-    }
-    return state
-}
-
-const history = (state = {}, action) => {
-    switch (action.type) {
-        case actionTypes.LOAD_HISTORY:
-            return action.history || {}
-
-        case actionTypes.SUBMIT_ANSWER:
-            const stateForKey = state[action.key] || {}
-            const history = stateForKey[action.id] || {
-                id: action.id,
-                correct: 0,
-                total: 0,
-            }
-
-            const newHistory = Object.assign({}, history)
-            if (action.correct) newHistory.correct++
-            newHistory.total++
-
-            const newStateForKey = Object.assign({}, stateForKey, {
-                [action.id]: newHistory,
-            })
-            const newState = Object.assign({}, state, {
-                [action.key]: newStateForKey,
-            })
-
-            return newState
-    }
-    return state
-}
-
-const reducer = combineReducers({
-    active,
-    words,
+export default combineReducers({
     history,
+    lang,
+    quiz,
+    recent,
+    words,
 })
-
-export default reducer

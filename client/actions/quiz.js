@@ -1,4 +1,5 @@
 import * as actionTypes from '../actionTypes'
+import * as selectors from '../selectors'
 import {saveHistory} from './history'
 
 const rand = (max) => Math.floor(max * Math.random())
@@ -17,40 +18,32 @@ const setQuestion = (word) => ({
 
 export const nextQuestion = () => (dispatch, getState) => {
     const state = getState()
-    const key = state.active.key
-    const words = state.words[key]
+    const words = selectors.getWords(state)
 
     // avoid picking the same word again
-    const oldWord = state.active.word
+    const quiz = selectors.getCurrentQuiz(state)
     let newWord = randElement(words)
-    while (newWord == oldWord) {
+    while (newWord.id == quiz.id) {
         newWord = randElement(words)
     }
 
     dispatch(setQuestion(newWord))
 }
 
-const submitAnswer = (key, id, question, answer, correct) => ({
+const submitAnswer = (key, quiz) => ({
     type: actionTypes.SUBMIT_ANSWER,
     key,
-    id,
-    question,
-    answer,
-    correct,
+    quiz,
+    // TODO: is this unicode safe
+    correct: quiz.answer.toLowerCase() == quiz.expected.toLowerCase(),
 })
 
 export const sendAnswer = () => (dispatch, getState) => {
     const state = getState()
-    const key = state.active.key
-    const word = state.active.word
-    const answer = state.active.answer
+    const key = selectors.getLangKey(state)
+    const quiz = selectors.getCurrentQuiz(state)
 
-    // TODO: this assumes all questions are foreign
-    const question = word.foreign
-    // TODO: is this unicode safe
-    const correct = answer.toLowerCase() == word.native.toLowerCase()
-
-    dispatch(submitAnswer(key, word.id, question, answer, correct))
+    dispatch(submitAnswer(key, quiz))
     dispatch(nextQuestion())
     dispatch(saveHistory())
 }
