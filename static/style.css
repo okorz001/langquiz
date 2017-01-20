@@ -48,32 +48,59 @@ body, button, input {
     max-width: 500px;
 }
 
-.question {
+.quiz .question {
     order: 1;
     text-align: center;
     margin: auto;
 }
 
-.answer {
+.quiz .answer {
     order: 2;
     text-align: center;
     margin: auto;
     border: 1px solid #777777;
 }
 
-.submit {
+.quiz .submit {
     order: 3;
     margin: auto;
 }
 
-.results {
-    order: 4;
+.recent {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
 }
 
-.right {
+.result {
+    color: #CC0000;
+    text-align: left;
+}
+
+.result.correct {
     color: #00AA00;
 }
 
-.wrong {
-    color: #CC0000;
+.result .question::before {
+    content: '✘ ';
+}
+
+.result.correct .question::before {
+    content: '✔ ';
+}
+
+.result .question::after {
+    content: ' → ';
+}
+
+.result .expected::before {
+    content: ' (';
+}
+
+.result .expected::after {
+    content: ')';
+}
+
+.result.correct .expected {
+    display: none;
 }

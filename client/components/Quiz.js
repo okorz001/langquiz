@@ -15,31 +15,6 @@ const onClick = (dispatch) => (event) => {
     dispatch(sendAnswer())
 }
 
-const Results = ({results}) => {
-    let n = results.length
-    const items = results.map(result =>
-        <Result key={n--} correct={result.correct}
-                question={result.question} answer={result.answer} />
-    )
-    return (
-        <div className="results">
-            Recent Answers: <br />
-            {items}
-        </div>
-    )
-}
-
-const Result = ({correct, question, answer}) => {
-    const css = correct ? 'right' : 'wrong'
-    const mark = correct ? '✔' : '✘'
-    const text = `${mark} ${question} → ${answer}`
-    return (
-        <div className={css}>
-            {text}
-        </div>
-    )
-}
-
 const Quiz = ({quiz, results, dispatch}) => (
     <form className="quiz">
         <div className="question">
@@ -53,7 +28,6 @@ const Quiz = ({quiz, results, dispatch}) => (
                 onClick={onClick(dispatch)}>
             Submit
         </button>
-        <Results results={results} />
     </form>
 )
 
@@ -64,17 +38,10 @@ Quiz.propTypes = {
         expected: PropTypes.string.isRequired,
         answer: PropTypes.string.isRequired,
     }).isRequired,
-    results: PropTypes.arrayOf(PropTypes.shape({
-        question: PropTypes.string.isRequired,
-        expected: PropTypes.string.isRequired,
-        answer: PropTypes.string.isRequired,
-        correct: PropTypes.bool.isRequired,
-    })).isRequired,
 }
 
 const stateToProps = (state) => ({
     quiz: selectors.getCurrentQuiz(state),
-    results: selectors.getRecentQuizzes(state),
 })
 
 export default connect(stateToProps)(Quiz)
