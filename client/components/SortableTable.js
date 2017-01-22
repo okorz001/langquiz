@@ -26,23 +26,25 @@ function renderHeaders(columns, sort, reverse, onClick) {
     })
 }
 
-function renderRows(data, keys) {
+function renderRows(columns, keys, data) {
     return data.map((datum, i) => {
-        const values = keys.map((key, j) =>
-            <td key={j}>{datum[key]}</td>
-        )
+        const values = keys.map((key, j) => {
+            // TODO: dual iteration is a design smell
+            const render = columns[j].render || (s => s)
+            return <td key={j}>{render(datum[key])}</td>
+        })
         return <tr key={i}>{values}</tr>
     })
 }
 
-function compareStrings(a, b) {
+export function compareStrings(a, b) {
     a = a.toString()
     b = b.toString()
     return a.localeCompare(b)
 }
 
 // Math.sign is apparently not portable
-function compareNumbers(a, b) {
+export function compareNumbers(a, b) {
     a = +a
     b = +b
     return a < b ? -1 : (a > b ? 1 : 0)
@@ -100,7 +102,7 @@ class SortableTable extends React.Component {
 
         const headers = renderHeaders(columns, sort, reverse,
                                       this.onHeaderClick)
-        const rows = renderRows(sortedData, keys) 
+        const rows = renderRows(columns, keys, sortedData)
 
         return (
             <table className={className}>
@@ -123,6 +125,7 @@ const columnShape = PropTypes.shape({
         PropTypes.oneOf(['string', 'number']),
         PropTypes.func,
     ]),
+    render: PropTypes.func,
 })
 
 SortableTable.propTypes = {
