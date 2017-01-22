@@ -16,8 +16,6 @@ export default (state = INITIAL_STATE, action) => {
                 // TODO: this assumes all quizzes are foreign -> native
                 question: word.foreign,
                 expected: word.native,
-                // TODO: app should just SET_ANSWER again
-                answer: '',
             })
 
         case SET_ANSWER:

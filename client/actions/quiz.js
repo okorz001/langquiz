@@ -11,6 +11,8 @@ export const setAnswer = (answer) => ({
     answer,
 })
 
+export const clearAnswer = () => setAnswer('')
+
 const setQuestion = (word) => ({
     type: actionTypes.SET_QUESTION,
     word,
@@ -27,6 +29,7 @@ export const nextQuestion = () => (dispatch, getState) => {
         newWord = randElement(words)
     }
 
+    dispatch(clearAnswer())
     dispatch(setQuestion(newWord))
 }
 
