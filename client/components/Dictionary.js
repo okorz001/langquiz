@@ -27,10 +27,14 @@ function compareHistory(a, b) {
     return -ret
 }
 
+function renderForeign(foreign) {
+    return (str) => <span lang={foreign}>{str}</span>
+}
+
 const Dictionary = ({native, foreign, words, history}) => {
     const columns = [
         {label: native, sort: 'string'},
-        {label: foreign, sort: 'string'},
+        {label: foreign, sort: 'string', render: renderForeign(foreign)},
         {label: 'history', sort: compareHistory, render: renderHistory},
     ]
     const data = words.map(word => {
