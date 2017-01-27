@@ -29,12 +29,13 @@ Result.propTypes = {
     result: resultPropType.isRequired,
 }
 
-const Recent = ({results}) => {
+const Recent = ({results, streak}) => {
     const items = results.map((result, i) =>
         <Result key={i} result={result} />
     )
     return (
         <div className="recent">
+            <div>Current Streak: {streak}</div>
             <div>Recent Answers:</div>
             <div className="results">{items}</div>
         </div>
@@ -43,10 +44,12 @@ const Recent = ({results}) => {
 
 Recent.propTypes = {
     results: PropTypes.arrayOf(resultPropType).isRequired,
+    streak: PropTypes.number.isRequired,
 }
 
 const stateToProps = (state) => ({
     results: selectors.getRecentQuizzes(state),
+    streak: selectors.getStreak(state),
 })
 
 export default connect(stateToProps)(Recent)

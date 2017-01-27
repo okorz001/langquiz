@@ -31,3 +31,9 @@ export function getCurrentQuiz(state) {
 export function getRecentQuizzes(state) {
     return state.recent || []
 }
+
+export function getStreak(state) {
+    const recent = getRecentQuizzes(state)
+    // will return -1 if recent is empty
+    return Math.max(recent.findIndex(r => !r.correct), 0)
+}

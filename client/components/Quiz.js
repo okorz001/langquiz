@@ -15,7 +15,7 @@ const onClick = (dispatch) => (event) => {
     dispatch(sendAnswer())
 }
 
-const Quiz = ({quiz, results, dispatch}) => (
+const Quiz = ({quiz, dispatch}) => (
     <form className="quiz">
         <div className="question">
             {quiz.question}
