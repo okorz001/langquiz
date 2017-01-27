@@ -34,6 +34,8 @@ export function getRecentQuizzes(state) {
 
 export function getStreak(state) {
     const recent = getRecentQuizzes(state)
-    // will return -1 if recent is empty
-    return Math.max(recent.findIndex(r => !r.correct), 0)
+    if (!recent) return 0
+    // will return -1 if all true
+    const streak = recent.findIndex(r => !r.correct)
+    return streak == -1 ? recent.length : streak
 }
