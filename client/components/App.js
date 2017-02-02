@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {PropTypes} from 'react'
 import {connect} from 'react-redux'
 
 import * as selectors from '../selectors'
@@ -16,8 +16,14 @@ const App = ({native}) => (
     </div>
 )
 
+App.propTypes = {
+    native: PropTypes.string.isRequired,
+    page: PropTypes.string.isRequired,
+}
+
 const stateToProps = (state) => ({
     native: selectors.getNativeLang(state),
+    page: selectors.getPage(state),
 })
 
 export default connect(stateToProps)(App)

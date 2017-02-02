@@ -1,4 +1,7 @@
 state:
+    # String - current page to show
+    page: quiz
+
     lang:
         # String - code for native language
         native: en

@@ -39,3 +39,7 @@ export function getStreak(state) {
     const streak = recent.findIndex(r => !r.correct)
     return streak == -1 ? recent.length : streak
 }
+
+export function getPage(state) {
+    return state.page
+}
