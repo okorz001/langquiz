@@ -3,16 +3,27 @@ import {connect} from 'react-redux'
 
 import * as selectors from '../selectors'
 import Dictionary from './Dictionary'
+import Menu from './Menu'
 import Quiz from './Quiz'
 import Recent from './Recent'
 
-const App = ({native}) => (
+function getPage(page) {
+    switch (page) {
+        case 'quiz':
+            return <Quiz />
+        case 'recent':
+            return <Recent />
+        case 'words':
+            return <Dictionary />
+    }
+    console.error(`unknown page: ${page}`)
+    return null
+}
+
+const App = ({native, page}) => (
     <div lang={native}>
-        <Quiz />
-        <hr />
-        <Recent />
-        <hr />
-        <Dictionary />
+        <Menu />
+        <main>{getPage(page)}</main>
     </div>
 )
 
