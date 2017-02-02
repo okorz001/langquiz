@@ -97,13 +97,13 @@ main > * {
 }
 
 .result {
-    color: #CC0000;
+    color: #C00;
     text-align: left;
     padding: 5px;
 }
 
 .result.correct {
-    color: #00AA00;
+    color: #0A0;
 }
 
 .result .question::before {
@@ -142,28 +142,30 @@ main > * {
     content: '↑ ';
 }
 
-.dictionary {
-    width: 100%;
+#dictionary table {
+    margin: auto;
 }
 
-.dictionary td,
-.dictionary th {
+#dictionary td,
+#dictionary th {
     padding: 2px 5px 2px 5px;
 }
 
-.dictionary th {
-    background-color: #000000;
-    color: #FFFFFF;
+#dictionary th {
+    background-color: #000;
+    color: #FFF;
+    white-space: nowrap;
 }
 
-.dictionary td:nth-child(3) {
+/* Score */
+#dictionary td:nth-child(3) {
     text-align: center;
 }
 
-.dictionary tr:nth-child(odd) {
-    background-color: #FFFFFF;
+#dictionary tr:nth-child(odd) {
+    background-color: #FFF;
 }
 
-.dictionary tr:nth-child(even) {
-    background-color: #DDDDDD;
+#dictionary tr:nth-child(even) {
+    background-color: #DDD;
 }

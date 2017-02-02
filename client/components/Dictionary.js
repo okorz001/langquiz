@@ -35,15 +35,19 @@ const Dictionary = ({native, foreign, words, history}) => {
     const columns = [
         {label: native, sort: 'string'},
         {label: foreign, sort: 'string', render: renderForeign(foreign)},
-        {label: 'history', sort: compareHistory, render: renderHistory},
+        {label: 'score', sort: compareHistory, render: renderHistory},
     ]
     const data = words.map(word => {
         const {id, native, foreign} = word
         const {correct, total} = history[id] || {correct: 0, total: 0}
         return [native, foreign, {correct, total}]
     })
-    return <SortableTable className="dictionary"
-                          columns={columns} data={data} sort={0} />
+    // Wrap in a div for styling. table has specific display which is tricky.
+    return (
+        <div id="dictionary">
+            <SortableTable columns={columns} data={data} sort={0} />
+        </div>
+    )
 }
 
 Dictionary.propTypes = {

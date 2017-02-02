@@ -17,15 +17,11 @@ const onClick = (dispatch) => (event) => {
 
 const Quiz = ({quiz, dispatch}) => (
     <form id="quiz">
-        <div className="question">
-            {quiz.question}
-        </div>
+        <span className="question">{quiz.question}</span>
         <input type="text" autoFocus className="answer"
-               value={quiz.answer}
-               onChange={onChange(dispatch)}>
+               value={quiz.answer} onChange={onChange(dispatch)}>
         </input>
-        <button className="submit"
-                onClick={onClick(dispatch)}>
+        <button className="submit" onClick={onClick(dispatch)}>
             Submit
         </button>
     </form>
