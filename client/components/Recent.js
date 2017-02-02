@@ -34,10 +34,12 @@ const Recent = ({results, streak}) => {
         <Result key={i} result={result} />
     )
     return (
-        <div className="recent">
-            <div>Current Streak: {streak}</div>
-            <div>Recent Answers:</div>
-            <div className="results">{items}</div>
+        <div id="recent">
+            <div id="streak">
+                Current Streak:
+                <span className="value">{streak}</span>
+            </div>
+            <div id="results">{items}</div>
         </div>
     )
 }

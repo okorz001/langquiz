@@ -16,7 +16,7 @@ const onClick = (dispatch) => (event) => {
 }
 
 const Quiz = ({quiz, dispatch}) => (
-    <form className="quiz">
+    <form id="quiz">
         <div className="question">
             {quiz.question}
         </div>

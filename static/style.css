@@ -1,80 +1,105 @@
-body, button, input {
+/* This is the root node of the entire React tree. */
+#app {
     font-family: 'Noto Sans', sans-serif;
-    font-size: 20px;
+    height: 100vh;
+    font-size: 16px;
 }
 
-.sortable::before {
-    content: '↕ ';
+/* These elements do not implicitly inherit fonts. */
+button, input, select {
+    text-align: inherit;
+    font-family: inherit;
+    font-size: inherit;
 }
 
-.selected::before {
-    content: '↓ ';
-}
+/* A single div wraps the entire app so we can set the lang. */
+#app > div {
+    height: 100%;
 
-.reversed::before {
-    content: '↑ ';
-}
-
-.dictionary {
-    margin: auto;
-}
-
-.dictionary td,
-.dictionary th {
-    padding: 2px 5px 2px 5px;
-}
-
-.dictionary th {
-    background-color: #000000;
-    color: #FFFFFF;
-}
-
-.dictionary td:nth-child(3) {
-    text-align: center;
-}
-
-.dictionary tr:nth-child(odd) {
-    background-color: #FFFFFF;
-}
-
-.dictionary tr:nth-child(even) {
-    background-color: #DDDDDD;
-}
-
-.quiz {
     display: flex;
-    flex-direction: column;
-    margin: auto;
-    max-width: 500px;
+    flex-flow: column nowrap;
+    justify-content: flex-start;
+    align-items: stretch;
 }
 
-.quiz .question {
+/* This should always float above the current page. */
+#menu {
     order: 1;
-    text-align: center;
-    margin: auto;
+    flex: 0 0 auto;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-around;
+    align-items: center;
+
+    padding: 5px;
+
+    background-color: #7CF;
+    border-width: 0 0 2px 0;
+    border-style: none none solid none;
+    border-color: #000;
 }
 
-.quiz .answer {
+.link {
+    padding: 5px;
+}
+
+.link.current {
+    color: #FFF;
+}
+
+/* This wraps every page. */
+main  {
     order: 2;
+    flex: 1 1 auto;
+
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: stretch;
+
+    overflow-y: auto;
+}
+
+main > * {
+    flex: 1 1 auto;
+}
+
+#quiz {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+
     text-align: center;
-    margin: auto;
-    border: 1px solid #777777;
+    max-width: 500px;
+    font-size: 1.5em;
 }
 
-.quiz .submit {
-    order: 3;
-    margin: auto;
+#quiz > .question {
+    padding: 5px;
 }
 
-.recent {
+#recent {
     display: flex;
     flex-flow: column;
     align-items: center;
 }
 
+#streak {
+    padding: 5px;
+}
+
+#streak .value {
+    padding: 5px;
+    font-size: 1.5em;
+    vertical-align: text-bottom;
+}
+
 .result {
     color: #CC0000;
     text-align: left;
+    padding: 5px;
 }
 
 .result.correct {
@@ -103,4 +128,42 @@ body, button, input {
 
 .result.correct .expected {
     display: none;
+}
+
+.sortable::before {
+    content: '↕ ';
+}
+
+.selected::before {
+    content: '↓ ';
+}
+
+.reversed::before {
+    content: '↑ ';
+}
+
+.dictionary {
+    width: 100%;
+}
+
+.dictionary td,
+.dictionary th {
+    padding: 2px 5px 2px 5px;
+}
+
+.dictionary th {
+    background-color: #000000;
+    color: #FFFFFF;
+}
+
+.dictionary td:nth-child(3) {
+    text-align: center;
+}
+
+.dictionary tr:nth-child(odd) {
+    background-color: #FFFFFF;
+}
+
+.dictionary tr:nth-child(even) {
+    background-color: #DDDDDD;
 }
