@@ -4,7 +4,7 @@ import {connect} from 'react-redux'
 import * as selectors from '../selectors'
 import Dictionary from './Dictionary'
 import Menu from './Menu'
-import Quiz from './Quiz'
+import Quiz from './QuizPage'
 import Recent from './Recent'
 
 function getPage(page) {
